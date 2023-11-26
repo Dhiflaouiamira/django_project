@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block username %}
+{{ user }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="text-info">Vehicle Details</h3>
+    <br>
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+              {{ vehicle.model }}
+              {% if vehicle.for_sale == True %}
+                <span class="badge badge-success">For sale</span>
+                {% endif %}
+            </h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ vehicle.brand }}</h6>
+          <br>
+          <ul class="list-group">
+            <li class="list-group-item">
+                <strong>Kilometers: </strong> {{ vehicle.kilometers }}
+            </li>
+            <li class="list-group-item">
+                <strong>Fuel Type: </strong> {{ vehicle.fuel_type }}
+            </li>
+            <li class="list-group-item ">
+                <strong>Owned By: </strong> {{ vehicle.owner }}
+            </li>
+            <li class="list-group-item ">
+                <strong>Price : </strong> {{ vehicle.price }} TND
+            </li>
+          </ul>
+          
+        <br>
+        </div>
+      </div>
+    <br>
+    {% if user == vehicle.owner %}
+        <button type="button" class="btn btn-primary">Update</button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
+    {% endif %}
+
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Alert</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure to delete this vehicle?
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+          <a type="button" href="/delete/{{vehicle.id}}" class="btn btn-primary">Yes, delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
