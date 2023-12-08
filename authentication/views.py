@@ -44,7 +44,7 @@ def home_view(request):
 
 
 def logout_view(request):
-    return redirect('login_path')
+    return redirect('')
 
 
 def register_view(request):

@@ -38,7 +38,7 @@
       </div>
     <br>
     {% if user == vehicle.owner %}
-    <a class="btn btn-primary" href="/updatevehicle" role="button">update</a>
+    <a class="btn btn-primary" href="/updatevehicle/{{vehicle.id}}" role="button">update</a>
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
     {% endif %}
 

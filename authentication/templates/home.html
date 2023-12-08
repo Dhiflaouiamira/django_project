@@ -7,26 +7,25 @@
 
 {% block content %}
   <div class="container">
-    <h3 class="text-info">Home Page</h1>
+    <h3 class="text-info">Home Page</h3>
     <h6>Welcome {{ user }} </h6><br>
-
-      <div class="list-group">
-        <div class="row">
-          {% for vehicle in user_vehicles %}
-          <div class="card" style="width: 18rem;">
-            <img src="{% static vehicle.photo.name %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <p class="card-text">{{ vehicle }}</p>
-              <a href="/vehicles/{{vehicle.id}}" class="card-link">detail</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        {% endfor %}
-        </div>
-      </div>
-    <br>
     <a class="btn btn-primary" href="/addvehicle" role="button">Add new Vehicle</a>
+   
+    <div class="list-group">
+      <br>
+      <div class="row">
+        {% for vehicle in user_vehicles %}
+        <div class="card mx-3" style="width: 18rem;">
+          {% if vehicle.photo %} 
+            <img src="{{vehicle.photo.url}}">
+          {% endif %}     
+          <div class="card-body">
+            <p class="card-text">{{ vehicle }}</p>
+            <a href="/vehicles/{{vehicle.id}}" class="card-link">detail</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
-
-
 {% endblock %}

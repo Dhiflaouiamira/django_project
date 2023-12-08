@@ -1,60 +1,19 @@
-{% extends "base.html" %}
+<!-- updatevehicle.html -->
 
-{% block username %}
-{{ user }}
-{% endblock %}
-
-{% block content %}
-<div class="container">
-    <h3 class="text-info">Update Vehicle</h3>
-    <br>
-
-    <form action="#" method="POST">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Vehicle</title>
+</head>
+<body>
+    <h1>Update Vehicle</h1>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="form-group">
-          <label>For sale : </label>
-          {{ form.for_sale }}
-        </div>
-        <div class="form-group">
-          <label>Model Name : </label>
-          {{ form.model }}
-        </div>
-        <div class="form-group">
-          <label>Brand Name : </label>
-          {{ form.brand }}
-        </div>
-
-        <div class="form-group">
-          <label>Fuel Type : </label>
-          {{ form.fuel_type }}
-        </div>
-
-        <div class="form-group">
-          <label>Kilometers : </label>
-          {{ form.kilometers }}
-        </div>
-
-        <div class="form-group">
-          <label>Price : </label>
-          {{ form.price }}
-        </div>
-
-        <div class="form-group">
-          <label>Photo : </label>
-          {{ form.photo }}
-        </div>
-    
-        <br>
-        <div class="form-group">
-          <input type="submit" class="btn btn-primary " value="Update vehicle">
-        </div>
-
-        {% if message != "" %}
-          <div class="alert alert-warning" role="alert">
-            {{ message }}
-          </div>
-        {% endif %}
-
+        {{ form.as_p }}
+        <button type="submit">Update</button>
     </form>
-</div>
-{% endblock %}
+</body>
+</html>

@@ -85,23 +85,28 @@ def predictvehicle_view(request):
         "user": request.user, 
         "message": message}
     )
-def updatevehicle_view(request, vehicle_id):
+from django.shortcuts import render, redirect
+from .forms import UpdateVehicleForm
+from .models import Vehicle
+
+def  updatevehicle_view(request, id):
     message = ""
     try:
-        vehicle = Vehicle.objects.get(pk=vehicle_id)
+        vehicle = Vehicle.objects.get(pk=id)
         if request.method == 'POST':
-            form = AddVehicleForm(request.POST, instance=vehicle)
+            form = UpdateVehicleForm(request.POST, request.FILES, instance=vehicle)
             if form.is_valid():
                 form.save()
                 message = "Vehicle updated successfully."
+                return redirect('vehicle_details', id=id)  # Redirect to vehicle details page after update
         else:
-            form = AddVehicleForm(instance=vehicle)
+            form = UpdateVehicleForm(instance=vehicle)
     except Vehicle.DoesNotExist:
         message = "Vehicle does not exist."
         form = None
 
     return render(request, "updatevehicle.html", {
         "form": form,
-        "vehicle_id": vehicle_id,
+        "vehicle_id": id,
         "message": message
     })

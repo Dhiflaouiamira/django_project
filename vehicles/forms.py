@@ -1,5 +1,6 @@
 from django import forms
 from vehicles.models import *
+from .models import Vehicle
 
 class AddVehicleForm(forms.Form):
     """
@@ -103,6 +104,15 @@ class PredictedVehicleForm(forms.Form):
     )
 
 
-    
-    
-
+class UpdateVehicleForm(forms.ModelForm):
+    class Meta:
+        model = Vehicle
+        fields = ['model', 'brand', 'kilometers', 'fuel_type', 'price', 'photo']
+        widgets = {
+            'model': forms.TextInput(attrs={'class': 'form-control'}),
+            'brand': forms.Select(attrs={'class': 'form-control'}),
+            'kilometers': forms.NumberInput(attrs={'class': 'form-control'}),
+            'fuel_type': forms.Select(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
+        }
