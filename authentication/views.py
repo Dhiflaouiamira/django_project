@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from authentication.forms import LoginForm
+from authentication.forms import *
 from vehicles.models import *
-
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 def login_view(request):
     message = ""
@@ -41,3 +45,25 @@ def home_view(request):
 
 def logout_view(request):
     return redirect('login_path')
+
+
+def register_view(request):
+    if request.user.is_authenticated:
+        return redirect(reverse('authentication:home'))
+    message = None
+    if request.method == "GET":
+        form = UserRegistrationForm()
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if not form.is_valid():
+            message = form.errors
+        else:
+            user = form.save()
+            login(request, user)
+            return redirect('login_path')
+
+    return render(
+        request=request,
+        template_name = "signup.html",
+        context={"form": form, "message": message}
+    )

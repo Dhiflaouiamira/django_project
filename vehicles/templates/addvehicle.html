@@ -1,62 +1,19 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block username %}
-{{ user }}
+    {{ user }}
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h3 class="text-info">Add new Vehicle</h3>
-    <br>
-
-    <form action="#" method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-          <label>For sale : </label>
-          {{ form.for_sale }}
-        </div>
-        <div class="form-group">
-          <label>Model Name : </label>
-          {{ form.model }}
-        </div>
-        <div class="form-group">
-          <label>Brand Name : </label>
-          {{ form.brand }}
-        </div>
-
-          <div class="form-group">
-          <label>Fuel Type : </label>
-          {{ form.fuel_type }}
-        </div>
-
-        <div class="form-group">
-          <label>KIlometers : </label>
-          {{ form.kilometers }}
-        </div>
-
-        <div class="form-group">
-          <label>Price : </label>
-          {{ form.price }}
-        </div>
-
-        <div class="form-group">
-          <label>Photo : </label>
-          {{ form.photo }}
-        </div>
-    
+    <div class="container">
+        <h3 class="text-info">Add new Vehicle</h3>
         <br>
-        <div class="form-group">
-          <input type="submit" class="btn btn-primary " value="Add vehicle">
-        </div>
 
-        {% if message != "" %}
-          <div class="alert alert-warning" role="alert">
-            {{ message }}
-          </div>
-        {% endif %}
+        <form method="post"> {# Ensure the form uses the POST method #}
+            {% csrf_token %} {# Include CSRF token for security #}
+            {{ form.as_p }} {# Render the form fields using form.as_p #}
 
-      </form>
-
-
-</div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 {% endblock %}

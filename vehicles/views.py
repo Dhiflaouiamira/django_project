@@ -31,7 +31,7 @@ def addvehicle_view(request):
                     kilometers=form.cleaned_data.get("kilometers"),
                     price=form.cleaned_data.get("price"),
                     brand=form.cleaned_data.get("brand"),
-                    photo=form.cleaned_data["photo"],
+                    photo=form.cleaned_data.get("photo")
                 )
                 vehicle.save()
                 message = "{} saved successfully.".format(vehicle)
@@ -85,3 +85,23 @@ def predictvehicle_view(request):
         "user": request.user, 
         "message": message}
     )
+def updatevehicle_view(request, vehicle_id):
+    message = ""
+    try:
+        vehicle = Vehicle.objects.get(pk=vehicle_id)
+        if request.method == 'POST':
+            form = AddVehicleForm(request.POST, instance=vehicle)
+            if form.is_valid():
+                form.save()
+                message = "Vehicle updated successfully."
+        else:
+            form = AddVehicleForm(instance=vehicle)
+    except Vehicle.DoesNotExist:
+        message = "Vehicle does not exist."
+        form = None
+
+    return render(request, "updatevehicle.html", {
+        "form": form,
+        "vehicle_id": vehicle_id,
+        "message": message
+    })

@@ -20,8 +20,8 @@ class Vehicle(models.Model):
     kilometers = models.IntegerField()
     price = models.IntegerField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to = 'static/photos', null=True, default = 'photos/default.png')
-    photo_url=models.CharField(max_length=255,default="photos/default.png") 
+    photo = models.ImageField(upload_to = 'vehicles/static/photos/', default = 'photos/default.png')
+   
     def __str__(self):
         return "{} - {}".format(self.model, self.brand)
 

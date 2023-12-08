@@ -14,7 +14,7 @@
         <div class="row">
           {% for vehicle in user_vehicles %}
           <div class="card" style="width: 18rem;">
-            <img src="{% static 'photos/default.png' %}"  class="card-img-top" alt="...">
+            <img src="{% static vehicle.photo.name %}" class="card-img-top" alt="...">
             <div class="card-body">
               <p class="card-text">{{ vehicle }}</p>
               <a href="/vehicles/{{vehicle.id}}" class="card-link">detail</a>
